@@ -106,6 +106,21 @@ namespace Laboratorio_4_OOP_201902
         //Metodos
         public void DrawCard(int cardId = 0)
         {
+            if (cardId.GetType().Name==nameof( CombatCard))
+            {
+                CombatCard card = (CombatCard)deck.Cards[cardId];
+                CombatCard cartamazo = new CombatCard(card.Name, card.Type, card.Effect, card.AttackPoints, card.Hero);
+                hand.Cards.Add(cartamazo);
+                deck.Cards.Remove(cartamazo);
+            }
+            else if (cardId.GetType().Name == nameof(SpecialCard))
+            {
+                SpecialCard card = (SpecialCard)deck.Cards[cardId];
+                SpecialCard carta = new SpecialCard(card.Name, card.Type, card.Effect);
+                hand.Cards.Add(carta);
+                deck.Cards.Remove(carta);
+            }
+            
             /*
             1- Definir si la carta a robada del mazo es CombatCard o SpecialCard
             2- Luego deberá agregar la carta robada al mazo. En este paso debe respetar el tipo por referencia, para esto:
@@ -114,23 +129,52 @@ namespace Laboratorio_4_OOP_201902
                 2.3- Agregue la nueva carta a la mano
             Elimine la carta del mazo.
             Hint: Utilice los métodos ya creados en Hand y Deck (AddCard y DestroyCard), no se preocupe de la implementacion de estos aun.*/
-            throw new NotImplementedException();
+            
         }
         public void PlayCard(int cardId, EnumType buffRow = EnumType.None)
         {
-            /*Realice el mismo procedimiento que en DrawCard, solo que ahora es desde Hand a Board.
-              En caso de CombatCard siga el mismo procedimiento, recuerde que el método AddCard de Board requiere el id del usuario.
-              En caso de SpecialCard:
-                1- Realice los pasos 2.1 y 2.2 de DrawCard
-                2- Identifique el tipo de la carta, 
-                    2.1- Si es buff:
-                        -El metodo AddCard de Board requiere el Id del usuario
-                        -El metodo requiere la entrada buff{fila a la que se va a jugar}. Ejemplo buffmelee, este dato viene en el parámetro buffRow.
-                    2.2- Si es weather:
-                        -El metodo AddCard solo requiere la carta.
-                3- Elimine la carta de la mano. 
-             */
-            throw new NotImplementedException();
+            if (cardId.GetType().Name == nameof(CombatCard))
+            {
+                CombatCard card = (CombatCard)hand.Cards[cardId];
+                CombatCard carta = new CombatCard(card.Name, card.Type, card.Effect, card.AttackPoints, card.Hero);
+                board.AddCard(carta);
+                hand.Cards.Remove(carta);
+            }
+            else
+            {
+                SpecialCard card = (SpecialCard)hand.Cards[cardId];
+                SpecialCard carta = new SpecialCard(card.Name, card.Type, card.Effect);
+                
+                hand.Cards.Remove(carta);
+                if (carta.Type == EnumType.buff)
+                {
+                    
+                    
+                }
+                else if (carta.Type == EnumType.weather)
+                {
+                    board.AddCard(carta);
+                }
+                else
+                {
+                    board.AddCard(carta);
+                }
+                
+                
+            }
+                /*Realice el mismo procedimiento que en DrawCard, solo que ahora es desde Hand a Board.
+                  En caso de CombatCard siga el mismo procedimiento, recuerde que el método AddCard de Board requiere el id del usuario.
+                  En caso de SpecialCard:
+                    1- Realice los pasos 2.1 y 2.2 de DrawCard
+                    2- Identifique el tipo de la carta, 
+                        2.1- Si es buff:
+                            -El metodo AddCard de Board requiere el Id del usuario
+                            -El metodo requiere la entrada buff{fila a la que se va a jugar}. Ejemplo buffmelee, este dato viene en el parámetro buffRow.
+                        2.2- Si es weather:
+                            -El metodo AddCard solo requiere la carta.
+                    3- Elimine la carta de la mano. 
+                 */
+                throw new NotImplementedException();
         }
         public void ChangeCard(int cardId)
         {
