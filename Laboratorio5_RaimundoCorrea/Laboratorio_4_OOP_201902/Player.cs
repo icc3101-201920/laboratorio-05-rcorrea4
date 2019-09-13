@@ -146,7 +146,7 @@ namespace Laboratorio_4_OOP_201902
                 SpecialCard carta = new SpecialCard(card.Name, card.Type, card.Effect);
                 
                 hand.Cards.Remove(carta);
-                if (carta.Type == EnumType.buff)
+                if (carta.Type == EnumType.buff || carta.Type==EnumType.bufflongRange || carta.Type== EnumType.buffmelee || carta.Type==EnumType.buffrange)
                 {
                     
                     
